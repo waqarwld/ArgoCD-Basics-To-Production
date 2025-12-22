@@ -1,12 +1,46 @@
-# What is Argo CD? Argo CD Architecture
+# Argo CD Architecture Deep Dive & Step-by-Step Installation
 
 ## Video reference for this lecture is the following:
 
+[![Watch the video](https://img.youtube.com/vi/0dTRGi1oCfU/maxresdefault.jpg)](https://www.youtube.com/watch?v=0dTRGi1oCfU&ab_channel=CloudWithVarJosh)
 
 
 ---
 ## ⭐ Support the Project  
 If this **repository** helps you, give it a ⭐ to show your support and help others discover it! 
+
+---
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [What is GitOps (Quick Recap)](#what-is-gitops-quick-recap)
+  - [GitOps Principles (Recap)](#gitops-principles-recap)
+- [What Is Argo CD?](#what-is-argo-cd)
+- [Understanding Argo CD Through the Diagram](#understanding-argo-cd-through-the-diagram)
+  - [Git as the Single Source of Truth](#git-as-the-single-source-of-truth)
+  - [Argo CD as the GitOps Control Plane](#argo-cd-as-the-gitops-control-plane)
+  - [Application-Level View](#application-level-view)
+  - [Pull-Based Reconciliation vs Push-Based Deployment](#pull-based-reconciliation-vs-push-based-deployment)
+- [Argo CD Architecture](#argo-cd-architecture)
+  - [Core Components of Argo CD](#core-components-of-argo-cd)
+    - [API Server](#1-api-server)
+    - [Repository Server](#2-repository-server)
+    - [Application Controller](#3-application-controller)
+  - [How DevOps Engineer and CI Fit Into This Architecture](#how-devops-engineer-and-ci-fit-into-this-architecture-diagram-context)
+  - [Supporting Components](#supporting-components)
+- [Lab: Installing Argo CD (Local Setup Using KIND)](#lab-installing-argo-cd-local-setup-using-kind)
+  - [Prerequisites](#prerequisites)
+  - [Create a KIND Cluster](#step-1-create-a-kind-cluster)
+  - [Add the Argo CD Helm Repository](#step-2-add-the-argo-cd-helm-repository)
+  - [Create Namespace for Argo CD](#step-3-create-namespace-for-argo-cd)
+  - [Install Argo CD Using Helm](#step-4-install-argo-cd-using-helm)
+  - [Verify Argo CD Installation](#step-5-verify-argo-cd-installation)
+  - [Access Argo CD UI](#step-6-access-argo-cd-ui-port-forwarding)
+  - [Retrieve Initial Admin Password](#step-7-retrieve-initial-admin-password)
+  - [Login and Reset Password](#step-8-login-and-reset-password)
+- [Conclusion](#conclusion)
+- [References (Official)](#references-official)
 
 ---
 
@@ -54,6 +88,8 @@ These principles imply the need for a **long-running controller** that can obser
 
 ## What Is Argo CD?
 
+![Alt text](/images/2a.png)
+
 Argo CD is a **Kubernetes-native GitOps control plane** that implements GitOps for Kubernetes workloads by continuously reconciling the desired state declared in Git with the live state of a Kubernetes cluster. It runs inside the cluster and enforces state through **continuous comparison and reconciliation**, rather than event-driven deployments.
 
 To understand Argo CD clearly, it helps to break down **what it is responsible for and what it deliberately does not do**.
@@ -84,6 +120,7 @@ Argo CD **enforces GitOps but does not build or deploy applications**. It does n
 
 ## Understanding Argo CD Through the Diagram
 
+![Alt text](/images/2a.png)
 The diagram shows a **single Kubernetes cluster** with **two applications currently managed by Argo CD**: `app1` and `app2`. It also intentionally leaves room for additional applications (for example `app3`, `app4`) that are **not yet managed by Argo CD** and continue to follow a **traditional push-based CI/CD model**.
 
 This reflects how GitOps is adopted in real environments: **incrementally, not all at once**.
@@ -153,6 +190,8 @@ It enforces state **only for applications explicitly configured under its manage
 ---
 
 ## Argo CD Architecture
+
+![Alt text](/images/2b.png)
 
 At a high level, Argo CD follows the **Kubernetes control-plane pattern**. It is not a single binary but a set of cooperating components, each with a clearly defined responsibility.
 
