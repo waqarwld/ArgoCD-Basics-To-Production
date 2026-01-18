@@ -509,6 +509,21 @@ In this demo, we will **intentionally and visually observe** how **PreSync**, **
 All Application CRDs, application code, and Kubernetes manifests used here are part of the **GitHub notes for this lecture**.
 You can refer to them alongside the demo to see the full repository structure.
 
+**Pre-Requisite**
+Before starting this demo, ensure the following:
+
+* Argo CD is installed and running
+* Argo CD API server is accessible
+
+If you need installation steps, refer to:
+[https://github.com/CloudWithVarJosh/ArgoCD-Basics-To-Production/tree/main/02-Arch-Install](https://github.com/CloudWithVarJosh/ArgoCD-Basics-To-Production/tree/main/02-Arch-Install)
+
+Enable port-forwarding:
+
+```bash
+kubectl port-forward service/my-argo-cd-argocd-server -n argocd 8080:443
+```
+
 ---
 
 ## Step 0: What we are demonstrating (context)
@@ -526,7 +541,7 @@ We are intentionally **not enabling auto-sync**, so that hook execution and clea
 
 ---
 
-## Step 0.5: Build and push container images (prerequisite)
+## Step 0.5: Build and push container images
 
 To keep this demo **focused on Argo CD sync hooks**, we will use **simple container images** built locally and pushed to Docker Hub.
 
