@@ -72,6 +72,8 @@ Keeping this distinction clear is essential for correctly understanding the App 
 
 ## Why App of Apps Is Needed
 
+![Alt text](/images/9a.png)
+
 Modern products are rarely deployed as a single, monolithic unit.
 In practice, most real-world systems are designed either as **tiered architectures** or as **microservices-based systems**.
 
@@ -112,6 +114,8 @@ The **App of Apps pattern** addresses these challenges by introducing a **produc
 ---
 
 ## What Is App of Apps?
+
+![Alt text](/images/9b.png)
 
 **App of Apps is a GitOps pattern, not a feature.**
 
@@ -170,6 +174,8 @@ This pattern becomes increasingly valuable as the number of components and envir
 ## Demo: App of Apps (Argo CD)
 
 ## Demo Introduction: What Are We Going to Do?
+
+![Alt text](/images/9c.png)
 
 In this demo, we will work with a **simple product composed of two tiers**:
 a **frontend (FE)** and a **backend (BE)**.
